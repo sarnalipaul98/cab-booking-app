@@ -1,36 +1,133 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cab Booking App
 
-## Getting Started
+A full-stack cab booking application that connects riders and drivers. Riders can book rides, view ride history and receipts, make demo payments, and submit reviews. Drivers can accept rides, update ride status, and view ratings.
 
-First, run the development server:
+## Live Demo
+
+- **Application:** https://cab-booking-app-ruby.vercel.app/
+- **Health Check:** https://cab-booking-app-ruby.vercel.app/api/health
+- **GitHub Repository:** https://github.com/sarnalipaul98/cab-booking-app
+
+## Features
+
+### Authentication and Profiles
+- Rider and driver sign-in and sign-up using Clerk.
+- User profile management.
+- Profile picture upload.
+
+### Ride Booking
+- Riders can create ride requests.
+- Drivers can view and accept available rides.
+- Drivers can mark rides as in progress and completed.
+- Riders can view their ride history.
+
+### Payments and Receipts
+- Demo payment status recording.
+- Ride receipt page.
+- Email receipts using Resend.
+
+**Note:** Payments are simulated. The application does not currently process real-money transactions.
+
+### Ratings and Reviews
+- Riders can rate and review completed rides.
+- Drivers can view their ratings and reviews.
+
+### Database and API
+- Supabase PostgreSQL database.
+- API routes for ride booking, driver actions, profiles, receipts, payments, and reviews.
+- Server-side handling of sensitive database credentials.
+
+## Technology Stack
+
+- **Frontend:** Next.js, React, TypeScript, Tailwind CSS
+- **Authentication:** Clerk
+- **Database:** Supabase PostgreSQL
+- **Email:** Resend
+- **Hosting:** Vercel
+- **Version Control:** Git and GitHub
+
+## Run Locally
+
+### Prerequisites
+- Node.js and npm
+- Supabase project and credentials
+- Clerk authentication credentials
+- Resend API key for email receipts
+
+### Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/sarnalipaul98/cab-booking-app.git
+cd cab-booking-app
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env.local` file in the project root with these variables:
+
+```env
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+SUPABASE_SECRET_KEY=
+RESEND_API_KEY=
+EMAIL_FROM=
+```
+
+Fill in your own valid credentials. Never commit `.env.local` or publish secret values.
+
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production Build and Checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Run the TypeScript check:
 
-## Learn More
+```bash
+npx tsc --noEmit
+```
 
-To learn more about Next.js, take a look at the following resources:
+Create an optimized production build:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
+The Next.js application and API routes are hosted on Vercel. Supabase provides the database. Environment variables are configured through Vercel project settings.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Testing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The application has been manually tested for:
+- Rider and driver authentication.
+- Ride booking and driver acceptance.
+- Ride start and completion.
+- Demo payments and ride history.
+- Receipt viewing and email delivery.
+- Ratings and reviews.
+- Database health endpoint.
+
+The TypeScript check and production build completed successfully.
+
+## Future Improvements
+
+- Integration with a real payment provider.
+- Additional automated security and integration tests.
+- Improved ride tracking and production monitoring.
+
+## Author
+
+Sarnali Paul
