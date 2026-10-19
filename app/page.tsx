@@ -1,69 +1,148 @@
-import Image from "next/image";
+"use client";
+
+import Link from "next/link";
+import { useUser, UserButton } from "@clerk/nextjs";
 
 export default function Home() {
+  const { isLoaded, isSignedIn } = useUser();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="min-h-screen bg-slate-950 text-white">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
+        <Link href="/" className="text-2xl font-bold text-yellow-400">
+          GoCab
+        </Link>
+
+        <div className="flex items-center gap-4">
+          {!isLoaded ? (
+            <span className="text-sm text-slate-400">Loading...</span>
+          ) : isSignedIn ? (
+            <>
+              <Link href="/dashboard" className="hover:text-yellow-400">
+                Rider Dashboard
+              </Link>
+              <Link href="/driver" className="hover:text-yellow-400">
+                Driver Dashboard
+              </Link>
+              <UserButton />
+            </>
+          ) : (
+            <>
+              <Link
+                href="/sign-in"
+                className="rounded-lg border border-slate-600 px-4 py-2 hover:bg-slate-800"
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/sign-up"
+                className="rounded-lg bg-yellow-400 px-4 py-2 font-semibold text-slate-950 hover:bg-yellow-300"
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
+        </div>
+      </nav>
+
+      <section className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 md:grid-cols-2 md:py-32">
+        <div>
+          <p className="mb-4 font-semibold uppercase tracking-widest text-yellow-400">
+            Your journey, your way
           </p>
+
+          <h1 className="text-5xl font-extrabold leading-tight md:text-7xl">
+            Your ride.
+            <br />
+            Your time.
+            <br />
+            <span className="text-yellow-400">Go anywhere.</span>
+          </h1>
+
+          <p className="mt-6 max-w-lg text-lg leading-8 text-slate-300">
+            Book your ride in a few simple steps. Travel comfortably,
+            track your ride status, and manage your trips in one place.
+          </p>
+
+          <div className="mt-8 flex flex-wrap gap-4">
+            {!isLoaded ? null : isSignedIn ? (
+              <>
+                <Link
+                  href="/book-ride"
+                  className="rounded-xl bg-yellow-400 px-6 py-4 font-bold text-slate-950 hover:bg-yellow-300"
+                >
+                  Book a Ride →
+                </Link>
+                <Link
+                  href="/dashboard"
+                  className="rounded-xl border border-slate-600 px-6 py-4 font-semibold hover:bg-slate-800"
+                >
+                  My Rides
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/sign-up"
+                  className="rounded-xl bg-yellow-400 px-6 py-4 font-bold text-slate-950 hover:bg-yellow-300"
+                >
+                  Get Started →
+                </Link>
+                <Link
+                  href="/sign-in"
+                  className="rounded-xl border border-slate-600 px-6 py-4 font-semibold hover:bg-slate-800"
+                >
+                  Sign In
+                </Link>
+              </>
+            )}
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="rounded-3xl border border-slate-700 bg-slate-900 p-8 shadow-2xl md:p-12">
+          <div className="mb-8 flex items-center justify-between">
+            <span className="text-lg font-semibold">Your next journey</span>
+            <span className="rounded-full bg-green-500/15 px-3 py-1 text-sm text-green-400">
+              Easy booking
+            </span>
+          </div>
+
+          <div className="space-y-6">
+            <div className="flex gap-4">
+              <div className="mt-1 h-4 w-4 rounded-full bg-yellow-400" />
+              <div>
+                <p className="text-sm text-slate-400">PICKUP</p>
+                <p className="mt-1 font-semibold">
+                  Choose your pickup location
+                </p>
+              </div>
+            </div>
+
+            <div className="ml-[7px] h-10 border-l-2 border-dashed border-slate-600" />
+
+            <div className="flex gap-4">
+              <div className="mt-1 h-4 w-4 rounded-sm bg-white" />
+              <div>
+                <p className="text-sm text-slate-400">DESTINATION</p>
+                <p className="mt-1 font-semibold">
+                  Where would you like to go?
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-10 rounded-xl bg-slate-800 p-5">
+            <p className="text-sm text-slate-400">Ready when you are</p>
+            <p className="mt-2 text-xl font-bold">
+              Your destination is one tap away.
+            </p>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+                  <footer className="border-t border-slate-800 px-6 py-6 text-center text-sm text-slate-400">
+        GoCab - Your journey, made simple.
+      </footer>
+    </main>
   );
 }
